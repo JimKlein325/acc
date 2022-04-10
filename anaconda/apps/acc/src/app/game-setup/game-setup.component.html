@@ -1,0 +1,30 @@
+<form [formGroup]="form" class="game-setup">
+    <mat-card class="player1-card mat-elevation-z12">
+        <mat-card-title>Player 1</mat-card-title>
+        <mat-card-content class="player1">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="player1" />
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="player2-card mat-elevation-z12">
+        <mat-card-title>Player 2</mat-card-title>
+        <mat-card-content class="player2">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="player2" />
+            </mat-form-field>
+            <mat-checkbox formControlName="isPlayingComputer" (click)="toggleComputerPlay()">
+                Play against the computer.
+            </mat-checkbox>
+        </mat-card-content>
+    </mat-card>
+
+</form>
+<div class="button-bar">
+    <button class="button" mat-raised-button [disabled]="!enablePlay" color="primary" >Play</button>
+    <button class="button" mat-raised-button>Save</button>
+    <button class="button" mat-raised-button>New Game</button>
+</div>

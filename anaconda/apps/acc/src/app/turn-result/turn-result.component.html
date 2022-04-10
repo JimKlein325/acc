@@ -1,0 +1,22 @@
+<div  class="turn-result">
+    <mat-card class="player1-card mat-elevation-z12">
+        <mat-card-content class="player1">
+            <mat-chip-list aria-label="Fish selection">
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(1,2), 'looser' : applyLooserStyle(1,2)}">Rock</mat-chip>
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(1,1), 'looser' : applyLooserStyle(1,1)}">Scissors</mat-chip>
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(1,0), 'looser' : applyLooserStyle(1,0)}">Paper</mat-chip>
+              </mat-chip-list>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="player2-card mat-elevation-z12">
+        <mat-card-content class="player2">
+            <mat-chip-list>
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(2,2), 'looser' : applyLooserStyle(2,2)}">Rock</mat-chip>
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(2,1), 'looser' : applyLooserStyle(2,1)}">Scissors</mat-chip>
+                <mat-chip [ngClass]="{'winner' : applyWinnerStyle(2,0), 'looser' : applyLooserStyle(2,0)}">Paper</mat-chip>
+              </mat-chip-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

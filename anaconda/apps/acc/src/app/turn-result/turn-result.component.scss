@@ -1,0 +1,24 @@
+.turn-result {
+    display: flex;
+    ;
+}
+
+.player1-card {     
+    min-width: 360px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.player2-card {     
+    min-width: 360px;
+    margin-left: 24px;
+    margin-right: 24px;
+}
+
+.winner {
+    background-color: green;
+}
+
+.looser {
+    background-color: darkgray;
+}

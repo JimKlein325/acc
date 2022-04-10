@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.shell-content {
+  display: flex;
+  flex-direction: row;
+}
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.play-area {
+  flex-direction: column;
+}
+.error-text {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.turns-card {
+  margin-top: 24px;
+  margin-left: 48px;
+  max-width: 860px;
+}

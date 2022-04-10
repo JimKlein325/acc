@@ -1,0 +1,26 @@
+<mat-card class="setup-card mat-elevation-z12">
+    <!-- <mat-card-title>Setup</mat-card-title> -->
+    <mat-card-content class="shell-content">
+        <div class="play-area">
+            <div class="error-text" *ngIf="gameSetupForm.errors as errors" >
+                <span *ngIf="errors['noSelections']">Please enter player names.</span>
+                <span *ngIf="errors['p1NoP2OrComp']">Please enter player 2 name.</span>
+                <span *ngIf="errors['NoP1Comp'] || errors['Nop1P2NoComp']">Please enter player 1 name.</span>
+            </div>
+            <acc-game-setup [formControl]="gameSetupForm" [enablePlay]="enablePlay$ |async"></acc-game-setup>
+            <acc-game-play [formControl]="gamePlayForm" [enablePlay]="enablePlay$ |async"></acc-game-play>
+            <mat-card class="turns-card mat-elevation-z12">
+                <mat-card-title>Turns</mat-card-title>
+                <mat-card-content>
+                    <div class="play-area">
+                        <acc-turn-result></acc-turn-result>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        
+        <div class="games" >
+            <acc-games></acc-games>
+        </div>
+    </mat-card-content>
+</mat-card>
