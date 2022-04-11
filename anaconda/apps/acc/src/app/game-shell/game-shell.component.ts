@@ -52,9 +52,6 @@ export class GameShellComponent implements OnInit, OnDestroy  {
     this.gamePlayForm.valueChanges.pipe(
       takeUntil(this._destroying$),
       startWith(this.gamePlayForm.value),
-      tap(value => {
-        console.log('form value', value);
-      }),
       filter(() => {
         return this.gamePlayForm.status === 'VALID'
       }),
@@ -62,8 +59,6 @@ export class GameShellComponent implements OnInit, OnDestroy  {
         this.service.addTurn(formValue)
         this.gamePlayForm.setValue(defaultGamePlayForm)
         this.gamePlayForm.updateValueAndValidity({onlySelf: true, emitEvent: false});
-        console.log('form val', formValue)
-
       })
   ).subscribe();
 
