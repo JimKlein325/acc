@@ -3,10 +3,11 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  forwardRef,
+  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import {
@@ -17,7 +18,7 @@ import {
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { GameSetupForm } from '../models';
+import {  Game, GameSetupForm } from '../models';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -34,7 +35,10 @@ import { GameSetupForm } from '../models';
   ]
 })
 export class GameSetupComponent implements ControlValueAccessor, OnDestroy, OnChanges {
-  @Input() enablePlay: boolean ;
+  @Input() enablePlay: boolean;
+  @Input() currentGame: Game;
+  @Output() playGame: EventEmitter<GameSetupForm> = new EventEmitter();
+  @Output() save = new EventEmitter();
 
   form: FormGroup = new FormGroup({
       player1: new FormControl(''),
@@ -63,6 +67,14 @@ export class GameSetupComponent implements ControlValueAccessor, OnDestroy, OnCh
 
   setDisabledState(isDisabled: boolean) {
     isDisabled ? this.form.disable() : this.form.enable();
+  }
+
+  handlePlay() {
+    this.playGame.emit(this.form.value)
+  }
+
+  handleSave() {
+    this.save.emit()
   }
 
   toggleComputerPlay() {

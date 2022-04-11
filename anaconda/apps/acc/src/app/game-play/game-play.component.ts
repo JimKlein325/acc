@@ -36,8 +36,8 @@ export class GamePlayComponent implements ControlValueAccessor, OnDestroy, OnCha
   @Input() enablePlay: boolean ;
 
   form: FormGroup = new FormGroup({
-    player1Selection: new FormControl(0),
-    player2Selection: new FormControl(0),
+    player1Selection: new FormControl(null),
+    player2Selection: new FormControl(null),
 });
 
 private _destroying$ = new Subject<void>();

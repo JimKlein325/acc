@@ -4,17 +4,27 @@ export interface Game {
     isPlayingComputer: boolean;
     player1Score: number;
     player2Score: number;
-    turns: Turn[]
+    turns: Turn[];
+    id?: string;
 }
 
-export type GameSetupForm = Omit<Game, 'turns' | 'player1Score'| 'player2Score'>
-export type GamePlayForm = Omit<Turn, 'player1Won'>
+export type GameSetupForm = Omit<Game, 'turns' | 'player1Score'| 'player2Score'| 'id'>
+export type GamePlayForm = Omit<Turn, 'player1Won' | 'outcome'>
 
+export type TurnOutcome = 'tie' | 'p1_wins' | 'p2_wins'
 export interface Turn {
     player1Selection: number;
     player2Selection: number;
-    player1Won: boolean;
+    outcome: TurnOutcome;
 }
+
+export const defaultTurn = {
+    player1Selection: 0,
+    player2Selection: 0,
+    outcome: 'tie'
+}
+
+export type RawTurn = Omit<Turn, 'outcome'>
 
 export const defaultGame: Game = {
     player1: '',
@@ -32,7 +42,7 @@ export const defaultGameSetupForm: GameSetupForm = {
 }
 
 export const defaultGamePlayForm: GamePlayForm = {
-    player1Selection: 0,
-    player2Selection: 0,
+    player1Selection: null,
+    player2Selection: null,
 }
 

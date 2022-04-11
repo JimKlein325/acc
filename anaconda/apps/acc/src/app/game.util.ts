@@ -24,3 +24,23 @@ export const setupValidator = (c: AbstractControl) : {[key: string]: boolean} | 
 
     return null;
 }
+export const playValidator = (c: AbstractControl) : {[key: string]: boolean} | null => {
+    const formGroup = c as FormGroup;
+    
+    const player1Selection = formGroup.value['player1Selection'];
+    const player2Selection = formGroup.value['player2Selection'];
+
+    if(player1Selection ===null && player2Selection===null){
+        return { 'noSelection': true }
+    }
+    
+    if(player1Selection>=0 && player2Selection===null){
+        return { 'P1Selected': true }
+    }
+    
+    if(player2Selection>=0 && player1Selection===null){
+        return { 'P2Selected': true }
+    }
+
+    return null;
+}

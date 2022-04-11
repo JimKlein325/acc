@@ -1,23 +1,28 @@
 <form [formGroup]="form" class="game-play">
     <mat-card class="player1-card mat-elevation-z12">
         <mat-card-content class="player1">
-            <mat-button-toggle-group name="playerSelection" aria-label="Font Style">
-                <mat-button-toggle value="2">Rock</mat-button-toggle>
-                <mat-button-toggle value="1">Scissors</mat-button-toggle>
-                <mat-button-toggle value="0">Papper</mat-button-toggle>
+            <mat-button-toggle-group formControlName="player1Selection" name="playerSelection" aria-label="Font Style">
+                <mat-button-toggle [value]="2">Rock</mat-button-toggle>
+                <mat-button-toggle [value]="1">Scissors</mat-button-toggle>
+                <mat-button-toggle [value]="0">Papper</mat-button-toggle>
               </mat-button-toggle-group>
         </mat-card-content>
     </mat-card>
 
     <mat-card class="player2-card mat-elevation-z12">
         <mat-card-content class="player2">
-            <mat-button-toggle-group name="playerSelection" aria-label="Font Style">
-                <mat-button-toggle value="2">Rock</mat-button-toggle>
-                <mat-button-toggle value="1">Scissors</mat-button-toggle>
-                <mat-button-toggle value="0">Papper</mat-button-toggle>
+            <mat-button-toggle-group formControlName="player2Selection" name="playerSelection" >
+                <mat-button-toggle [value]="2">Rock</mat-button-toggle>
+                <mat-button-toggle [value]="1">Scissors</mat-button-toggle>
+                <mat-button-toggle [value]="0">Papper</mat-button-toggle>
               </mat-button-toggle-group>
         </mat-card-content>
     </mat-card>
+    <div class="error-text" *ngIf="form.errors as errors" >
+        <span *ngIf="errors['noSelection']">Either player can go first.</span>
+        <span *ngIf="errors['P1Selected']">Player 2's turn.</span>
+        <span *ngIf="errors['P2Selected']">Player 1's turn.</span>
+    </div>
 
 </form>
 

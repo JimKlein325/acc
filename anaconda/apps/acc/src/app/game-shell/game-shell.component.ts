@@ -5,13 +5,12 @@ import {
   OnInit,
 } from '@angular/core';
 import {
-  FormGroup,
   FormControl,
-  Validators
 } from '@angular/forms';
-import { filter, map, Observable, startWith, Subject, tap } from 'rxjs';
+import { filter, map, Observable, startWith, Subject, takeUntil, tap } from 'rxjs';
 import { GameService } from '../game.service';
-import { setupValidator } from '../game.util';
+import { playValidator, setupValidator } from '../game.util';
+import { defaultGamePlayForm, GameSetupForm, Turn } from '../models';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -32,16 +31,13 @@ export class GameShellComponent implements OnInit, OnDestroy  {
   }, setupValidator)
 
   gamePlayForm = new FormControl({
-    player1Selection: new FormControl([null, Validators.required]),
-    player2Selection: new FormControl([null, Validators.required])
-        })
+    player1Selection: null,
+    player2Selection: null
+        }, playValidator)
   
 
   private _destroying$ = new Subject<void>();
 
-  // setDisabledState(isDisabled: boolean) {
-  //   isDisabled ? this.form.disable() : this.form.enable();
-  // }
   constructor(private service: GameService) {}
 
   ngOnInit(): void {
@@ -53,8 +49,31 @@ export class GameShellComponent implements OnInit, OnDestroy  {
         return enable;
       })
     );
+    this.gamePlayForm.valueChanges.pipe(
+      takeUntil(this._destroying$),
+      startWith(this.gamePlayForm.value),
+      tap(value => {
+        console.log('form value', value);
+      }),
+      filter(() => {
+        return this.gamePlayForm.status === 'VALID'
+      }),
+      tap(formValue => {
+        this.service.addTurn(formValue)
+        this.gamePlayForm.setValue(defaultGamePlayForm)
+        this.gamePlayForm.updateValueAndValidity({onlySelf: true, emitEvent: false});
+        console.log('form val', formValue)
 
+      })
+  ).subscribe();
 
+  }
+  handlePlayGame(game: GameSetupForm) {
+    this.service.startGame(game)
+  }
+  
+  handleSave() {
+    this.service.saveGame()
   }
   
   ngOnDestroy() {

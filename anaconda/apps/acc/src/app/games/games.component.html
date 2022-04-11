@@ -1,1 +1,10 @@
-<p>games works!</p>
+<ng-container *ngIf="games.length>0; else noGames">
+    <ng-container *ngFor="let game of games">
+            <ng-container *ngFor="let game of games">
+            <h3>{{ game.id }}</h3>
+            <p>{{game.player1}}: {{game.player1Score}}</p>
+            <p>{{game.player2}}: {{game.player2Score}}</p>
+            </ng-container>
+    </ng-container>
+</ng-container>
+<ng-template #noGames>No games yet.</ng-template>

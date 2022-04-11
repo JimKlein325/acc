@@ -7,20 +7,31 @@
                 <span *ngIf="errors['p1NoP2OrComp']">Please enter player 2 name.</span>
                 <span *ngIf="errors['NoP1Comp'] || errors['Nop1P2NoComp']">Please enter player 1 name.</span>
             </div>
-            <acc-game-setup [formControl]="gameSetupForm" [enablePlay]="enablePlay$ |async"></acc-game-setup>
+            <acc-game-setup 
+            [formControl]="gameSetupForm"
+            [currentGame]="currentGame$ | async" 
+            (playGame)="handlePlayGame($event)" 
+            (save)="handleSave()"
+            [enablePlay]="enablePlay$ |async"></acc-game-setup
+            >
             <acc-game-play [formControl]="gamePlayForm" [enablePlay]="enablePlay$ |async"></acc-game-play>
             <mat-card class="turns-card mat-elevation-z12">
                 <mat-card-title>Turns</mat-card-title>
                 <mat-card-content>
-                    <div class="play-area">
-                        <acc-turn-result></acc-turn-result>
+                    <div class="play-area" *ngIf="currentGame$ | async as game; else noTurns">
+                    <ng-container  *ngIf="game.turns.length>0; else noTurns">
+                        <ng-container *ngFor="let turn of game.turns as Turn">
+                            <acc-turn-result [turnResult]="turn"></acc-turn-result>
+                        </ng-container>
+                    </ng-container>
                     </div>
                 </mat-card-content>
             </mat-card>
         </div>
         
         <div class="games" >
-            <acc-games></acc-games>
+            <acc-games [games]="games$ | async"></acc-games>
         </div>
     </mat-card-content>
 </mat-card>
+<ng-template #noTurns>No turns yet.</ng-template>

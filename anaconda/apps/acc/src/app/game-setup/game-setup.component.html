@@ -24,7 +24,7 @@
 
 </form>
 <div class="button-bar">
-    <button class="button" mat-raised-button [disabled]="!enablePlay" color="primary" >Play</button>
-    <button class="button" mat-raised-button>Save</button>
+    <button class="button" mat-raised-button [disabled]="!enablePlay" color="primary" (click)="handlePlay()" >Play</button>
+    <button class="button"  (click)="handleSave()" mat-raised-button>Save</button>
     <button class="button" mat-raised-button>New Game</button>
 </div>
